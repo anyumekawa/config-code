@@ -1,0 +1,292 @@
+{
+	// Place your snippets for mcfunction here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+  // }
+  
+  "execute": {
+    "prefix": "execute",
+    "body": "execute $0 run"
+  },
+
+  "as <entity>": {
+    "prefix": "as",
+    "body": "as ${1:@s}"
+  },
+
+  "at <entity>": {
+    "prefix": "at",
+    "body": "at ${1:@s}"
+  },
+
+  "if entity <entity>": {
+    "prefix": "if entity",
+    "body": "if entity ${1:@s[]}"
+  },
+
+  "if block <pos> <block>": {
+    "prefix": "if block",
+    "body": "if block ${1:~} $1 $1 ${2:minecraft:air}"
+  },
+
+  "if blocks <pos1> <pos2> <destination>": {
+    "prefix": "if blocks",
+    "body": "if blocks ${1:~} $1 $1 ${2:~} $2 $2 ${3:~} $3 $3 ${4:all}"
+  },
+
+  "if data entity <entity> <path>": {
+    "prefix": "if data entity",
+    "body": "if data entity ${1:@s} ${2:<Path>}"
+  },
+
+  "if data block <pos> <path>": {
+    "prefix": "if data block",
+    "body": "if data block ${1:~} $1 $1 ${2:<Path>}"
+  },
+
+  "if score": {
+    "prefix": "if score",
+    "body": "if score ${1:@s} ${2:objective} ${3:=} ${4:@s} ${5:objective}"
+  },
+
+  "unless entity <entity>": {
+    "prefix": "unless entity",
+    "body": "unless entity ${1:@s[]}"
+  },
+
+  "unless block <pos> <block>": {
+    "prefix": "unless block",
+    "body": "unless block ${1:~} $1 $1 ${2:minecraft:air}"
+  },
+
+  "unless blocks <pos1> <pos2> <destination>": {
+    "prefix": "unless blocks",
+    "body": "unless blocks ${1:~} $1 $1 ${2:~} $2 $2 ${3:~} $3 $3 ${4:all}"
+  },
+
+  "unless data entity <entity> <path>": {
+    "prefix": "unless data entity",
+    "body": "unless data entity ${1:@s} ${2:<Path>}"
+  },
+
+  "unless data block <pos> <path>": {
+    "prefix": "unless data block",
+    "body": "unless data block ${1:~} $1 $1 ${2:<Path>}"
+  },
+
+  "unless score": {
+    "prefix": "unless score",
+    "body": "unless score ${1:@s} ${2:objective} ${3:=} ${4:@s} ${5:objective}"
+  },
+
+  "positioned <pos>": {
+    "prefix": "positioned",
+    "body": "positioned ${1:^} $1 $1"
+  },
+
+  "positioned as <entity>": {
+    "prefix": "positioned as",
+    "body": "positioned as ${1:@s}"
+  },
+
+  "rotated <rot>": {
+    "prefix": "rotated",
+    "body": "rotated ${1:~} $1"
+  },
+
+  "rotated as <entity>": {
+    "prefix": "rotated as",
+    "body": "rotated as ${1:@s}"
+  },
+
+  "facing <pos>": {
+    "prefix": "facing",
+    "body": "facing ${1:~} $1 $1"
+  },
+
+  "facing entity <entity>": {
+    "prefix": "facing entity",
+    "body": "facing entity ${1:@s} ${2:feet}"
+  },
+
+  "align <axes>": {
+    "prefix": "align",
+    "body": "align ${1:x}${2:y}${3:z}"
+  },
+
+  "anchored": {
+    "prefix": "anchored",
+    "body": "anchored ${1:eyes positioned ^ ^ ^ anchored feet}"
+  },
+
+  "in <dimension>": {
+    "prefix": "in",
+    "body": "in ${1:minecraft:overworld}"
+  },
+
+  "store entity": {
+    "prefix": "store entity",
+    "body": "store ${1:result} entity ${2:@s} ${3:<Path>} ${4:int} ${5:1}"
+  },
+
+  "store block": {
+    "prefix": "store block",
+    "body": "store ${1:result} block ${2:~} $2 $2 ${3:<Path>} ${4:int} ${5:1}"
+  },
+
+  "store bossbar": {
+    "prefix": "store bossbar",
+    "body": "store ${1:result} bossbar ${2:<id>} ${3:value}"
+  },
+
+  "store score": {
+    "prefix": "store score",
+    "body": "store ${1:result} score ${2:@s} ${3:objective}"
+  },
+
+  "tp <pos>": {
+    "prefix": "tp",
+    "body": "tp ${1:@s} ${2:~} $2 $2 ${3:~} $3",
+    "description": "teleport to position"
+  },
+
+  "tp <entity>": {
+    "prefix": "tp",
+    "body": "tp ${1:@a} ${2:@s}",
+    "description": "teleport to entity's pos"
+  },
+
+  "advancement": {
+    "prefix": "advancement",
+    "body": "advancement ${1:grant} ${2:@s} ${3:only} ${4:sample:advancement}"
+  },
+
+  "data get entity": {
+    "prefix": "data get entity",
+    "body": "data get entity ${1:@s} ${2:<Path>} ${3:1}"
+  },
+
+  "data get block": {
+    "prefix": "data get block",
+    "body": "data get block ${1:~} $1 $1 ${2:<Path>} ${3:1}"
+  },
+
+  "data merge entity": {
+    "prefix": "data merge entity",
+    "body": "data merge entity ${1:@s} ${2:<Path>} {$0}"
+  },
+
+  "data merge block": {
+    "prefix": "data merge block",
+    "body": "data merge block ${1:~} $1 $1 ${2:<Path>} {$0}"
+  },
+
+  "data modify entity": {
+    "prefix": "data modify entity",
+    "body": "data modify entity ${1:@s} ${2:<Path>} ${3:set} value ${4:0}"
+  },
+
+  "data modify block": {
+    "prefix": "data modify block",
+    "body": "data modify block ${1:~} $1 $1 ${2:<Path>} ${3:set} value ${4:0}"
+  },
+
+  "data remove entity": {
+    "prefix": "data remove entity",
+    "body": "data remove entity ${1:@s} ${2:<Path>}"
+  },
+
+  "data remove block": {
+    "prefix": "data remove block",
+    "body": "data remove block ${1:~} $1 $1 ${2:<Path>}"
+  },
+
+  "loot give": {
+    "prefix": "loot give",
+    "body": "loot give ${1:@s} loot ${2:sample:loot_table}"
+  },
+
+  "schedule": {
+    "prefix": "schedule",
+    "body": "schedule function ${1:sample:function} ${2:1t}"
+  },
+
+  "scoreboard objectives add": {
+    "prefix": "scoreboard objectives add",
+    "body": "scoreboard objectives add ${1:objective} ${2:dummy} {\"text\":\"$1\"}"
+  },
+
+  "scoreboard players": {
+    "prefix": "scoreboard players",
+    "body": "scoreboard players ${1:set} ${2:@s} ${3:objective} ${4:1}"
+  },
+
+  "spreadplayers": {
+    "prefix": "spreadplayers",
+    "body": "spreadplayers ~ ~ 0 1 false ${1:@s}"
+  },
+
+  "summon": {
+    "prefix": "summon",
+    "body": "summon ${1:~} $1 $1 ${2:minecraft:area_effect_cloud} {$0}"
+  },
+
+  "tag": {
+    "prefix": "tag",
+    "body": "tag ${1:@s} ${2:add} ${3:test_tag}"
+  },
+
+  "tellraw": {
+    "prefix": "tellraw",
+    "body": "tellraw ${1:@a} [\"\",$0]"
+  },
+
+  "CustomName nbt": {
+    "prefix": "CustomName",
+    "body": "CustomName:\"{\\\"text\\\":\\\"$0\\\"}\""
+  },
+
+  "Tags nbt": {
+    "prefix": "Tags",
+    "body": "Tags:[\"$0\"]"
+  },
+
+  "text component": {
+    "prefix": "text component",
+    "body": "{\"text\":\"$0\"}"
+  },
+
+  "translate component": {
+    "prefix": "translate component",
+    "body": "{\"translate\":\"%1\\$s\",\"with\":[$0]}"
+  },
+
+  "score component": {
+    "prefix": "score component",
+    "body": "{\"score\":{\"name\":\"${1:*}\",\"objective\":\"${2:objective}\"}}"
+  },
+
+  "selector component": {
+    "prefix": "selector component",
+    "body": "{\"selector\":\"${1:@s}\"}"
+  },
+
+  "entity nbt component": {
+    "prefix": "nbt component",
+    "body": "{\"nbt\":\"${1:<Path>}\",\"entity\":\"${2:@s}\"}"
+  },
+
+  "block nbt component": {
+    "prefix": "nbt component",
+    "body": "{\"nbt\":\"${1:<Path>}\",\"block\":\"${2:~} $2 $2\"}"
+  }
+}

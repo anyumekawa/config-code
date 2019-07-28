@@ -1,0 +1,12 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.detectIndentation": false,
+    "editor.find.autoFindInSelection": true,
+    "editor.fontFamily": "'Roboto Mono', 'm+ 1M', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.renderWhitespace": "boundary",
+    "editor.scrollBeyondLastLine": false,
+    "editor.tabSize": 2,
+    "editor.tabCompletion": "on",
+    "editor.wordWrap": "on",
+    "workbench.colorTheme": "Tomorrow Night"
+}
