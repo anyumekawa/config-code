@@ -8,5 +8,6 @@
     "editor.tabSize": 2,
     "editor.tabCompletion": "on",
     "editor.wordWrap": "on",
-    "workbench.colorTheme": "Tomorrow Night"
+    "workbench.colorTheme": "Tomorrow Night",
+    "C_Cpp.autocomplete": "Disabled"
 }

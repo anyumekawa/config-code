@@ -15,26 +15,22 @@
 
 	"for loop": {
 		"prefix": "for",
-		"body": [
-			"for (auto ${1:i} = ${2:0}; $1 < ${3:n}; ++ $1)",
-			"{$0}"
-		]
+		"body": "for (auto ${1:i} = ${2:0}; $1 < ${3:n}; ++ $1)"
 	},
 
 	"for loop with iterator": {
 		"prefix": "for",
-		"body": [
-			"for (auto ${1:ite} = ${2:v}.begin (); $1 < $2.end (); ++ $1)",
-      "{$0}"
-		]
+		"body": "for (auto ${1:ite} = ${2:v}.begin (); $1 < $2.end (); ++ $1)"
 	},
 
 	"range-based for loop": {
 		"prefix": "for",
-		"body": [
-			"for (auto && ${1:elem} : ${2:v})",
-			"{$0}"
-		]
+		"body": "for (auto && ${1:elem} : ${2:v})"
+	},
+
+	"rep": {
+		"prefix": "rep",
+		"body": "rep (${1:i}, ${2:n})"
 	},
 
 	"iterator pair": {
@@ -61,86 +57,87 @@
 	},
 
 	"input with istream_iterator": {
-		"prefix": "input",
-		"body": "copy_n (istream_iterator <${1:int}> (cin), ${2:n}, back_inserter (${3:v}));"
-  },
-  
-	"input with for": {
-		"prefix": "input",
-    "body": [
-      "for (auto ${1:i} = ${2:0}; $1 < ${3:n}; ++ $1)",
-      "{",
-      "\t${4:int} ${5:x};",
-      "\tcin >> $5;",
-      "\t${6:v}.emplace_back (move ($5));",
-      "}"
-    ]
-  },
+		"prefix": "istream_iterator",
+		"body": "copy_n (istream_iterator <decay_t <decltype ($1.front ())>> (cin), ${2:n}, back_inserter (${1:v}));"
+	},
 
-  "namespace": {
-    "prefix": "namespace",
-    "body": "namespace ${1:detail} {$0} // namespace $1"
-  },
-  
-  "template": {
-    "prefix": "template",
-    "body": "template <typename ${1:T}$0>"
-  },
-  
-  "variadic template": {
-    "prefix": "template",
-    "body": "template <typename ... ${1:Ts}$0>"
-  },
+	"output with ostream_iterator": {
+		"prefix": "ostream_iterator",
+		"body": [
+			"copy (${1:v}.begin (), $1.end (), ostream_iterator <decay_t <decltype ($1.front ())>> (${2:cout}, \" \"));",
+			"$2 << endl;"
+		]
+	},
 
-  "function": {
-    "prefix": "function",
-    "body": [
-      "inline ${1:constexpr} auto ${3:f} (${4:T &&} ${5:x})${2: noexcept}",
-      "{",
-      "\treturn $5$0;",
-      "}"
-    ]
-  },
+	"namespace": {
+		"prefix": "namespace",
+		"body": "namespace ${1:detail} {$0} // namespace $1"
+	},
+	
+	"template": {
+		"prefix": "template",
+		"body": "template <typename ${1:T}$0>"
+	},
+	
+	"variadic template": {
+		"prefix": "template",
+		"body": "template <typename ... ${1:Ts}$0>"
+	},
 
-  "lambda": {
-    "prefix": "lambda",
-    "body": [
-      "[&] (auto && ${1:x}) {",
-      "\treturn $1$0;",
-      "}"
-    ]
-  },
+	"function": {
+		"prefix": "function",
+		"body": [
+			"inline ${1:constexpr} auto ${3:f} (${4:T &&} ${5:x})${2: noexcept}",
+			"{",
+			"\treturn $5$0;",
+			"}"
+		]
+	},
 
-  "main": {
-    "prefix": "main",
-    "body": [
-      "#include <bits/stdc++.h>",
-      "",
-      "using namespace std;",
-      "",
-      "auto main () -> int",
-      "{",
-      "\tcin.tie (nullptr);",
-      "\tios::sync_with_stdio (false);",
-      "\t$0",
-      "}",
-      ""
-    ]
-  },
+	"lambda": {
+		"prefix": "lambda",
+		"body": [
+			"[&] (auto && ${1:x}) {",
+			"\treturn $1$0;",
+			"}"
+		]
+	},
 
-  "ifndef": {
-    "prefix": "ifndef",
-    "body": [
-      "#ifndef ${1:LOCAL}",
-      "#else",
-      "#endif",
-      ""
-    ]
-  },
+	"main": {
+		"prefix": "main",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"",
+			"using namespace std;",
+			"",
+			"auto main () -> int",
+			"{",
+			"\tcin.tie (nullptr);",
+			"\tios::sync_with_stdio (false);",
+			"\t$0",
+			"}",
+			""
+		]
+	},
 
-  "1e9+7": {
-    "prefix": "1e9+7",
-    "body": "static_cast <int64_t> (1000000007)"
-  }
+	"define rep": {
+		"prefix": "#define rep",
+		"body": "#define rep(i,n) for (decay_t <decltype (n)> i = 0, i ## __len = (n); i < i ## __len; ++ i)"
+	},
+
+	"ifndef": {
+		"prefix": "#ifndef",
+		"body": [
+			"#ifndef ${1:LOCAL}",
+			"#else",
+			"#endif",
+			""
+		]
+	},
+
+	"1e9+7": {
+		"prefix": "1e9+7",
+		"body": "static_cast <int64_t> (1000000007)"
+	}
 
 }
