@@ -13,6 +13,34 @@
 	// 	"description": "Log output to console"
 	// }
 
+	"if": {
+		"prefix": "if",
+		"body": "if (${1:/* condition */})"
+	},
+
+	"else": {
+		"prefix": "else",
+		"body": "else"
+	},
+
+	"else if": {
+		"prefix": "else if",
+		"body": "else if (${1:/* condition */})"
+	},
+
+	"while": {
+		"prefix": "while",
+		"body": "while (${1:/* condition */})"
+	},
+
+	"do while": {
+		"prefix": "do",
+		"body": [
+			"do",
+			"{$0} while (${1:/* condition */});"
+		]
+	},
+
 	"for loop": {
 		"prefix": "for",
 		"body": "for (${1:auto} ${2:i} = ${3:0}; $2 < ${4:n}; ++ $2)"
@@ -33,40 +61,169 @@
 		"body": "rep (${1:i}, ${2:n})"
 	},
 
-	"iterator pair": {
-		"prefix": "ALL",
+	"switch": {
+		"prefix": "switch",
 		"body": [
-			"${1:v}.begin (), $1.end ()"
-		],
-		"description": "iterator pair"
-	},
-
-	"cout": {
-		"prefix": "cout",
-		"body": "cout << ${1:ans} << endl;"
-	},
-
-	"cout bool": {
-		"prefix": "cout",
-		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;"
-	},
-
-	"cin": {
-		"prefix": "cin",
-		"body": "cin >> ${1:n};"
-	},
-
-	"input with istream_iterator": {
-		"prefix": "istream_iterator",
-		"body": "copy_n (istream_iterator <decay_t <decltype ($1.front ())>> (cin), ${2:n}, back_inserter (${1:v}));"
-	},
-
-	"output with ostream_iterator": {
-		"prefix": "ostream_iterator",
-		"body": [
-			"copy (${1:v}.begin (), $1.end (), ostream_iterator <decay_t <decltype ($1.front ())>> (${2:cout}, \" \"));",
-			"$2 << endl;"
+			"switch (${1:x})",
+			"{$0",
+			"default:",
+			"}"
 		]
+	},
+
+	"static": {
+		"prefix": "static",
+		"body": "static"
+	},
+
+	"auto": {
+		"prefix": "auto",
+		"body": "auto"
+	},
+
+	"structured binding": {
+		"prefix": "auto",
+		"body": "auto && [${1:}] = ${2:/* tuple or array */};"
+	},
+
+	"void": {
+		"prefix": "void",
+		"body": "void"
+	},
+
+	"false": {
+		"prefix": "false",
+		"body": "false"
+	},
+
+	"true": {
+		"prefix": "true",
+		"body": "true"
+	},
+
+	"nullptr": {
+		"prefix": "nullptr",
+		"body": "nullptr"
+	},
+
+	"const": {
+		"prefix": "const",
+		"body": "const"
+	},
+
+	"volatile": {
+		"prefix": "volatile",
+		"body": "volatile"
+	},
+
+	"mutable": {
+		"prefix": "mutable",
+		"body": "mutable"
+	},
+
+	"constexpr": {
+		"prefix": "constexpr",
+		"body": "constexpr"
+	},
+
+	"explicit": {
+		"prefix": "explicit",
+		"body": "explicit"
+	},
+
+	"inline": {
+		"prefix": "inline",
+		"body": "inline"
+	},
+
+	"operator": {
+		"prefix": "operator",
+		"body": "operator ${1:+} (${2:})${3: noexcept} -> decltype(auto)"
+	},
+
+	"private": {
+		"prefix": "private",
+		"body": "private:"
+	},
+
+	"protected": {
+		"prefix": "protected",
+		"body": "protected:"
+	},
+
+	"public": {
+		"prefix": "public",
+		"body": "public:"
+	},
+
+	"decltype": {
+		"prefix": "decltype",
+		"body": "decltype (${1:/* expression */})"
+	},
+
+	"noexcept": {
+		"prefix": "noexcept",
+		"body": "noexcept"
+	},
+
+	"noexcept expression": {
+		"prefix": "noexcept",
+		"body": "noexcept (${1:/* expression */})"
+	},
+
+	"break": {
+		"prefix": "break",
+		"body": "break;"
+	},
+
+	"case": {
+		"prefix": "case",
+		"body": "case ${1:/* integral constant */}:"
+	},
+
+	"continue": {
+		"prefix": "continue",
+		"body": "continue;"
+	},
+
+	"goto": {
+		"prefix": "goto",
+		"body": "goto ${1:/* label */};"
+	},
+
+	"default": {
+		"prefix": "default",
+		"body": "default"
+	},
+
+	"delete": {
+		"prefix": "delete",
+		"body": "delete"
+	},
+
+	"new": {
+		"prefix": "new",
+		"body": "new"
+	},
+
+	"static_assert": {
+		"prefix": "static_assert",
+		"body": "static_assert (${1:/* condition */});"
+	},
+
+	"static_cast": {
+		"prefix": "static_cast",
+		"body": "static_cast <${1:/* type */}> (${2:/* expression */})"
+	},
+
+	"throw": {
+		"prefix": "throw",
+		"body": "throw ${1:/* expression */};"
+	},
+
+	"return": {
+		"prefix": "return",
+		"body": "return ${1:res};"
 	},
 
 	"namespace": {
@@ -76,20 +233,25 @@
 
 	"template": {
 		"prefix": "template",
-		"body": "template <typename ${1:T}$0>"
+		"body": "template <$0>"
+	},
+
+	"typename": {
+		"prefix": "typename",
+		"body": "typename ${1:T}"
 	},
 
 	"variadic template": {
-		"prefix": "template",
-		"body": "template <typename ... ${1:Ts}$0>"
+		"prefix": "typename",
+		"body": "typename ... ${1:Ts}"
 	},
 
 	"function": {
 		"prefix": "function",
 		"body": [
-			"inline${1: constexpr} auto ${3:f} (${4:T &&} ${5:x})${2: noexcept}",
+			"inline${2: constexpr} auto ${1:f} ()${3: noexcept}",
 			"{",
-			"\treturn $5$0;",
+			"\t$0",
 			"}"
 		]
 	},
@@ -99,6 +261,20 @@
 		"body": [
 			"[&] (auto && ${1:x}) {",
 			"\treturn $1$0;",
+			"}"
+		]
+	},
+
+	"try - catch": {
+		"prefix": "try",
+		"body": [
+			"try",
+			"{",
+			"\t$0",
+			"}",
+			"catch (const ${1:exception} & ${2:e})",
+			"{",
+			"\tcerr << $2.what () << endl;",
 			"}"
 		]
 	},
@@ -118,6 +294,52 @@
 			"}",
 			""
 		]
+	},
+
+	"cin": {
+		"prefix": "cin",
+		"body": "cin >> ${1:n};"
+	},
+
+	"cout": {
+		"prefix": "cout",
+		"body": "cout << ${1:ans} << endl;"
+	},
+
+	"cout bool": {
+		"prefix": "cout",
+		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;"
+	},
+
+	"iterator pair": {
+		"prefix": "ALL",
+		"body": [
+			"${1:v}.begin (), $1.end ()"
+		],
+		"description": "iterator pair"
+	},
+
+	"input with istream_iterator": {
+		"prefix": "istream_iterator",
+		"body": "copy_n (istream_iterator <decay_t <decltype ($1.front ())>> (cin), ${2:n}, back_inserter (${1:v}));"
+	},
+
+	"iterator pair of istream": {
+		"prefix": "istreambuf_iterator",
+		"body": "(istreambuf_iterator <char> (cin)), istreambuf_iterator <char> ()"
+	},
+
+	"output with ostream_iterator": {
+		"prefix": "ostream_iterator",
+		"body": [
+			"copy (${1:v}.begin (), $1.end (), ostream_iterator <decay_t <decltype ($1.front ())>> (${2:cout}, \" \"));",
+			"$2 << endl;"
+		]
+	},
+
+	"unique": {
+		"prefix": "unique",
+		"body": "${1:v}.erase (unique ($1.begin (), $1.end ()), $1.end ());"
 	},
 
 	"define rep": {
@@ -140,6 +362,11 @@
 		"body": "size_t"
 	},
 
+	"int64_t": {
+		"prefix": "int64_t",
+		"body": "int64_t"
+	},
+
 	"unique_ptr": {
 		"prefix": "unique_ptr",
 		"body": "unique_ptr"
@@ -149,10 +376,5 @@
 		"prefix": "1e9+7",
 		"body": "static_cast <int64_t> (1000000007)"
 	},
-
-	"unique": {
-		"prefix": "unique",
-		"body": "${1:v}.erase (unique ($1.begin (), $1.end ()), $1.end ());"
-	}
 
 }
