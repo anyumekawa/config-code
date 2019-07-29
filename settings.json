@@ -9,5 +9,5 @@
     "editor.tabCompletion": "on",
     "editor.wordWrap": "on",
     "workbench.colorTheme": "Tomorrow Night",
-    "C_Cpp.autocomplete": "Disabled"
+    "C_Cpp.suggestSnippets": false
 }
