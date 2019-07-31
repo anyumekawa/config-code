@@ -81,6 +81,11 @@
 		"body": "auto"
 	},
 
+	"auto &&": {
+		"prefix": "auto",
+		"body": "auto &&"
+	},
+
 	"structured binding": {
 		"prefix": "auto",
 		"body": "auto && [${1:}] = ${2:/* tuple or array */};"
@@ -188,7 +193,7 @@
 
 	"goto": {
 		"prefix": "goto",
-		"body": "goto ${1:/* label */};"
+		"body": "goto ${1:label};"
 	},
 
 	"default": {
@@ -228,7 +233,12 @@
 
 	"namespace": {
 		"prefix": "namespace",
-		"body": "namespace ${1:detail} {$0} // namespace $1"
+		"body": [
+			"namespace ${1:detail}",
+			"{",
+			"\t$0",
+			"} // namespace $1"
+		]
 	},
 
 	"template": {
@@ -241,15 +251,10 @@
 		"body": "typename ${1:T}"
 	},
 
-	"variadic template": {
-		"prefix": "typename",
-		"body": "typename ... ${1:Ts}"
-	},
-
 	"function": {
 		"prefix": "function",
 		"body": [
-			"inline${2: constexpr} auto ${1:f} ()${3: noexcept}",
+			"inline ${2:constexpr }auto ${1:f} ()${3: noexcept}",
 			"{",
 			"\t$0",
 			"}"
@@ -266,7 +271,7 @@
 	},
 
 	"try - catch": {
-		"prefix": "try",
+		"prefix": "try-catch",
 		"body": [
 			"try",
 			"{",
@@ -280,7 +285,7 @@
 	},
 
 	"main": {
-		"prefix": "main",
+		"prefix": "main()",
 		"body": [
 			"#include <bits/stdc++.h>",
 			"",
@@ -297,26 +302,28 @@
 	},
 
 	"cin": {
-		"prefix": "cin",
-		"body": "cin >> ${1:n};"
+		"prefix": "cin>>",
+		"body": "cin >> ${1:n};",
+		"description": "input"
 	},
 
 	"cout": {
-		"prefix": "cout",
-		"body": "cout << ${1:ans} << endl;"
+		"prefix": "cout<<",
+		"body": "cout << ${1:ans} << endl;",
+		"description": "output"
 	},
 
 	"cout bool": {
-		"prefix": "cout",
-		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;"
+		"prefix": "cout<<bool",
+		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;",
+		"description": "output <bool>"
 	},
 
 	"iterator pair": {
-		"prefix": "ALL",
+		"prefix": ["iterator-pair", "ALL"],
 		"body": [
 			"${1:v}.begin (), $1.end ()"
-		],
-		"description": "iterator pair"
+		]
 	},
 
 	"input with istream_iterator": {
@@ -324,8 +331,8 @@
 		"body": "copy_n (istream_iterator <decay_t <decltype ($1.front ())>> (cin), ${2:n}, back_inserter (${1:v}));"
 	},
 
-	"iterator pair of istream": {
-		"prefix": "istreambuf_iterator",
+	"iterator pair of istreambuf_iterator": {
+		"prefix": ["iterator-pair", "istreambuf_iterator"],
 		"body": "(istreambuf_iterator <char> (cin)), istreambuf_iterator <char> ()"
 	},
 
@@ -338,13 +345,18 @@
 	},
 
 	"unique": {
-		"prefix": "unique",
+		"prefix": "unique()",
 		"body": "${1:v}.erase (unique ($1.begin (), $1.end ()), $1.end ());"
 	},
 
 	"define rep": {
-		"prefix": "#define rep",
+		"prefix": ["#define rep", "define rep"],
 		"body": "#define rep(i,n) for (decay_t <decltype (n)> i = 0, i ## __len = (n); i < i ## __len; ++ i)"
+	},
+
+	"define dump": {
+		"prefix": ["#define dump", "define dump"],
+		"body": "#define dump(x) cerr << #x \" = \" << boolalpha << (x) << endl;"
 	},
 
 	"ifdef": {
