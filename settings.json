@@ -1,5 +1,13 @@
 {
     "files.autoSave": "afterDelay",
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/a.out": true
+    },
     "editor.detectIndentation": false,
     "editor.find.autoFindInSelection": true,
     "editor.fontFamily": "'Roboto Mono', 'm+ 1M', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
@@ -8,5 +16,6 @@
     "editor.tabSize": 2,
     "editor.tabCompletion": "on",
     "editor.wordWrap": "on",
-    "workbench.colorTheme": "Tomorrow Night"
+    "workbench.colorTheme": "Tomorrow Night",
+    "C_Cpp.updateChannel": "Insiders"
 }

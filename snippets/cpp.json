@@ -13,52 +13,75 @@
 	// 	"description": "Log output to console"
 	// }
 
-	"if": {
-		"prefix": "if",
-		"body": "if (${1:/* condition */})"
+	"include <>": {
+		"prefix": ["#include<>", "include<>"],
+		"body": "#include <${1:bits/stdc++.h}>$0"
 	},
 
-	"else": {
-		"prefix": "else",
-		"body": "else"
+	"include \"\"": {
+		"prefix": ["#include\"\"", "include\"\""],
+		"body": "#include \"${1:bits/stdc++.h}\"$0"
+	},
+
+	"main": {
+		"prefix": "main()",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"#define FOR(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (b), i ## __end = (e); i < i ## __end; ++ i)",
+			"#define FORR(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (e), i ## __begin = (b); i -- > i ## __begin;)",
+			"#define rep(i,n) for (decay_t <decltype (n)> i = 0, i ## __len = (n); i < i ## __len; ++ i)",
+			"#define ALL(x) begin (x), end (x)",
+			"using namespace std;",
+			"",
+			"auto main () -> int",
+			"{",
+			"\tcin.tie (nullptr);",
+			"\tios::sync_with_stdio (false);",
+			"",
+			"\t$0",
+			"}",
+			""
+		]
+	},
+
+	"if": {
+		"prefix": "if",
+		"body": "if (${1:/* condition */})$0"
 	},
 
 	"else if": {
 		"prefix": "else if",
-		"body": "else if (${1:/* condition */})"
+		"body": "else if (${1:/* condition */})$0"
 	},
 
 	"while": {
 		"prefix": "while",
-		"body": "while (${1:/* condition */})"
+		"body": "while (${1:/* condition */})$0"
 	},
 
 	"do while": {
 		"prefix": "do",
 		"body": [
 			"do",
-			"{$0} while (${1:/* condition */});"
+			"{",
+			"\t$0",
+			"} while (${1:/* condition */});"
 		]
 	},
 
 	"for loop": {
 		"prefix": "for",
-		"body": "for (${1:auto} ${2:i} = ${3:0}; $2 < ${4:n}; ++ $2)"
+		"body": "for (${1:auto} ${2:i} = ${3:0}; $2 < ${4:n}; ++ $2)$0"
 	},
 
 	"for loop with iterator": {
 		"prefix": "for",
-		"body": "for (auto ${1:ite} = ${2:v}.begin (); $1 < $2.end (); ++ $1)"
+		"body": "for (auto ${1:ite} = begin (${2:v}); $1 < end ($2); ++ $1)$0"
 	},
 
 	"range-based for loop": {
-		"prefix": "for",
-		"body": "for (auto && ${1:elem} : ${2:v})"
-	},
-
-	"rep": {
-		"prefix": "rep",
-		"body": "rep (${1:i}, ${2:n})"
+		"prefix": ["for", "range-based"],
+		"body": "for (auto && ${1:elem} : ${2:v})$0"
 	},
 
 	"switch": {
@@ -71,6 +94,257 @@
 		]
 	},
 
+	"case": {
+		"prefix": "case",
+		"body": "case ${1:/* integral constant */}:$0"
+	},
+
+	"goto": {
+		"prefix": "goto",
+		"body": "goto ${1:label};$0"
+	},
+
+	"return": {
+		"prefix": "return",
+		"body": "return ${1:res};$0"
+	},
+
+	"try - catch": {
+		"prefix": "try-catch",
+		"body": [
+			"try",
+			"{",
+			"\t$0",
+			"}",
+			"catch (const ${1:exception} & ${2:e})",
+			"{",
+			"\tcerr << $2.what () << endl;",
+			"}"
+		]
+	},
+
+	"throw": {
+		"prefix": "throw",
+		"body": "throw ${1:/* expression */};$0"
+	},
+
+	"sizeof": {
+		"prefix": "sizeof",
+		"body": "sizeof (${1:/* type or expression */})$0"
+	},
+
+	"alignof": {
+		"prefix": "alignof",
+		"body": "alignof (${1:/* type */})$0"
+	},
+
+	"decltype": {
+		"prefix": "decltype",
+		"body": "decltype (${1:/* expression */})$0"
+	},
+
+	"noexcept expression": {
+		"prefix": "noexcept",
+		"body": "noexcept (${1:/* expression */})$0"
+	},
+
+	"static_cast": {
+		"prefix": "static_cast",
+		"body": "static_cast <${1:/* type */}> (${2:/* expression */})$0"
+	},
+
+	"static_assert": {
+		"prefix": "static_assert",
+		"body": "static_assert (${1:/* condition */});$0"
+	},
+
+	"namespace": {
+		"prefix": "namespace",
+		"body": [
+			"namespace ${1:detail}",
+			"{",
+			"\t$0",
+			"} // namespace $1"
+		]
+	},
+
+	"template": {
+		"prefix": "template",
+		"body": "template <$0>"
+	},
+
+	"lambda": {
+		"prefix": "lambda",
+		"body": [
+			"[&] (auto && ${1:x}) {",
+			"\treturn $1$0;",
+			"}"
+		]
+	},
+
+	"lambda-recursive": {
+		"prefix": "lambda-recursive",
+		"body": [
+			"auto ${1:f} = [&] (auto self, auto && ${2:x}) {",
+			"\treturn self (self, $2);$0",
+			"};$0"
+		]
+	},
+
+	"function": {
+		"prefix": "function",
+		"body": [
+			"inline ${2:constexpr }auto ${1:f} ()${3: noexcept}",
+			"{",
+			"\t$0",
+			"}"
+		]
+	},
+
+	"auto &&": {
+		"prefix": "auto",
+		"body": "auto &&$0"
+	},
+
+	"structured binding": {
+		"prefix": "auto",
+		"body": "auto && [${1:}] = ${2:/* tuple or array */};$0"
+	},
+
+	"iterator pair": {
+		"prefix": ["iterator-pair", "ALL"],
+		"body": [
+			"begin (${1:v}), end ($1)$0"
+		]
+	},
+
+	"iterator pair of istreambuf_iterator": {
+		"prefix": ["iterator-pair", "istreambuf_iterator"],
+		"body": "(istreambuf_iterator <char> (cin)), istreambuf_iterator <char> ()$0"
+	},
+
+	"cin": {
+		"prefix": "cin>>",
+		"body": [
+			"${1:size_t} ${2:n}; cin >> $2;$0"
+		],
+		"description": "input"
+	},
+
+	"cin to vector": {
+		"prefix": "cin>>vector",
+		"body": [
+			"vector <${1:int64_t}> ${2:v};",
+			"for (auto && elem : $2) cin >> elem;$0"
+		],
+		"description": "input vector"
+	},
+
+	"cout": {
+		"prefix": "cout<<T",
+		"body": "cout << ${1:ans} << endl;$0",
+		"description": "output"
+	},
+
+	"cout bool": {
+		"prefix": "cout<<bool",
+		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;$0",
+		"description": "output <bool>"
+	},
+
+	"cout double": {
+		"prefix": "cout<<bool",
+		"body": "cout << fixed << setprecision (15) << ${1:ans} << endl;$0",
+		"description": "output <double>"
+	},
+
+	"input with istream_iterator": {
+		"prefix": "istream_iterator",
+		"body": "copy_n (istream_iterator <iterator_traits <decltype (begin ($1))>::value_type> (cin), ${2:n}, back_inserter (${1:v}));$0"
+	},
+
+	"output with ostream_iterator": {
+		"prefix": "ostream_iterator",
+		"body": [
+			"copy (begin (${1:ans}), end ($1), ostream_iterator <iterator_traits <decltype (begin ($1))>::value_type> (${2:cout}, \" \"));",
+			"$2 << endl;$0"
+		]
+	},
+
+	"unique": {
+		"prefix": "unique()",
+		"body": "${1:v}.erase (unique ($1.begin (), $1.end ()), $1.end ());$0"
+	},
+
+	"sum": {
+		"prefix": "sum()",
+		"body": "accumulate (begin (${1:v}), end ($1), typename iterator_traits <decltype (begin ($1))>::value_type {});$0"
+	},
+
+	"define FOR": {
+		"prefix": ["#define FOR", "define FOR"],
+		"body": "#define FOR(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (b), i ## __end = (e); i < i ## __end; ++ i)$0"
+	},
+
+	"define rep": {
+		"prefix": ["#define rep", "define rep"],
+		"body": "#define rep(i,n) for (decay_t <decltype (n)> i = 0, i ## __len = (n); i < i ## __len; ++ i)$0"
+	},
+
+	"define ALL": {
+		"prefix": ["#define ALL", "define ALL"],
+		"body": "#define ALL(x) begin (x), end (x)$0"
+	},
+
+	"define dump": {
+		"prefix": ["#define dump", "define dump"],
+		"body": "#define dump(x) cerr << #x \" = \" << boolalpha << (x) << endl;$0"
+	},
+
+	"define inf": {
+		"prefix": "define inf",
+		"body": [
+			"template <typename T = int64_t>",
+			"static constexpr auto inf = static_cast <T> (0x0de0b6b43b9aca00);$0"
+		],
+		"description": "constexpr inf"
+	},
+
+	"define EPS": {
+		"prefix": "define EPS",
+		"body": "static constexpr auto EPS = 1e-9;$0",
+		"description": "constexpr EPS"
+	},
+
+	"include-gurad": {
+		"prefix": "include-guard",
+		"body": [
+			"#ifndef ${1:#:/* macro */}",
+			"#define $1",
+			"$0",
+			"#endif // $1",
+			""
+		]
+	},
+
+	"ifdef": {
+		"prefix": "#ifdef",
+		"body": [
+			"#ifdef ${1:LOCAL}",
+			"$0",
+			"#endif"
+		]
+	},
+
+
+
+
+
+	"else": {
+		"prefix": "else",
+		"body": "else"
+	},
+
 	"static": {
 		"prefix": "static",
 		"body": "static"
@@ -79,16 +353,6 @@
 	"auto": {
 		"prefix": "auto",
 		"body": "auto"
-	},
-
-	"auto &&": {
-		"prefix": "auto",
-		"body": "auto &&"
-	},
-
-	"structured binding": {
-		"prefix": "auto",
-		"body": "auto && [${1:}] = ${2:/* tuple or array */};"
 	},
 
 	"void": {
@@ -143,7 +407,7 @@
 
 	"operator": {
 		"prefix": "operator",
-		"body": "operator ${1:+} (${2:})${3: noexcept} -> decltype(auto)"
+		"body": "operator"
 	},
 
 	"private": {
@@ -161,19 +425,9 @@
 		"body": "public:"
 	},
 
-	"decltype": {
-		"prefix": "decltype",
-		"body": "decltype (${1:/* expression */})"
-	},
-
 	"noexcept": {
 		"prefix": "noexcept",
 		"body": "noexcept"
-	},
-
-	"noexcept expression": {
-		"prefix": "noexcept",
-		"body": "noexcept (${1:/* expression */})"
 	},
 
 	"break": {
@@ -181,19 +435,9 @@
 		"body": "break;"
 	},
 
-	"case": {
-		"prefix": "case",
-		"body": "case ${1:/* integral constant */}:"
-	},
-
 	"continue": {
 		"prefix": "continue",
 		"body": "continue;"
-	},
-
-	"goto": {
-		"prefix": "goto",
-		"body": "goto ${1:label};"
 	},
 
 	"default": {
@@ -211,162 +455,9 @@
 		"body": "new"
 	},
 
-	"static_assert": {
-		"prefix": "static_assert",
-		"body": "static_assert (${1:/* condition */});"
-	},
-
-	"static_cast": {
-		"prefix": "static_cast",
-		"body": "static_cast <${1:/* type */}> (${2:/* expression */})"
-	},
-
-	"throw": {
-		"prefix": "throw",
-		"body": "throw ${1:/* expression */};"
-	},
-
-	"return": {
-		"prefix": "return",
-		"body": "return ${1:res};"
-	},
-
-	"namespace": {
-		"prefix": "namespace",
-		"body": [
-			"namespace ${1:detail}",
-			"{",
-			"\t$0",
-			"} // namespace $1"
-		]
-	},
-
-	"template": {
-		"prefix": "template",
-		"body": "template <$0>"
-	},
-
 	"typename": {
 		"prefix": "typename",
-		"body": "typename ${1:T}"
-	},
-
-	"function": {
-		"prefix": "function",
-		"body": [
-			"inline ${2:constexpr }auto ${1:f} ()${3: noexcept}",
-			"{",
-			"\t$0",
-			"}"
-		]
-	},
-
-	"lambda": {
-		"prefix": "lambda",
-		"body": [
-			"[&] (auto && ${1:x}) {",
-			"\treturn $1$0;",
-			"}"
-		]
-	},
-
-	"try - catch": {
-		"prefix": "try-catch",
-		"body": [
-			"try",
-			"{",
-			"\t$0",
-			"}",
-			"catch (const ${1:exception} & ${2:e})",
-			"{",
-			"\tcerr << $2.what () << endl;",
-			"}"
-		]
-	},
-
-	"main": {
-		"prefix": "main()",
-		"body": [
-			"#include <bits/stdc++.h>",
-			"",
-			"using namespace std;",
-			"",
-			"auto main () -> int",
-			"{",
-			"\tcin.tie (nullptr);",
-			"\tios::sync_with_stdio (false);",
-			"\t$0",
-			"}",
-			""
-		]
-	},
-
-	"cin": {
-		"prefix": "cin>>",
-		"body": "cin >> ${1:n};",
-		"description": "input"
-	},
-
-	"cout": {
-		"prefix": "cout<<",
-		"body": "cout << ${1:ans} << endl;",
-		"description": "output"
-	},
-
-	"cout bool": {
-		"prefix": "cout<<bool",
-		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;",
-		"description": "output <bool>"
-	},
-
-	"iterator pair": {
-		"prefix": ["iterator-pair", "ALL"],
-		"body": [
-			"${1:v}.begin (), $1.end ()"
-		]
-	},
-
-	"input with istream_iterator": {
-		"prefix": "istream_iterator",
-		"body": "copy_n (istream_iterator <decay_t <decltype ($1.front ())>> (cin), ${2:n}, back_inserter (${1:v}));"
-	},
-
-	"iterator pair of istreambuf_iterator": {
-		"prefix": ["iterator-pair", "istreambuf_iterator"],
-		"body": "(istreambuf_iterator <char> (cin)), istreambuf_iterator <char> ()"
-	},
-
-	"output with ostream_iterator": {
-		"prefix": "ostream_iterator",
-		"body": [
-			"copy (${1:v}.begin (), $1.end (), ostream_iterator <decay_t <decltype ($1.front ())>> (${2:cout}, \" \"));",
-			"$2 << endl;"
-		]
-	},
-
-	"unique": {
-		"prefix": "unique()",
-		"body": "${1:v}.erase (unique ($1.begin (), $1.end ()), $1.end ());"
-	},
-
-	"define rep": {
-		"prefix": ["#define rep", "define rep"],
-		"body": "#define rep(i,n) for (decay_t <decltype (n)> i = 0, i ## __len = (n); i < i ## __len; ++ i)"
-	},
-
-	"define dump": {
-		"prefix": ["#define dump", "define dump"],
-		"body": "#define dump(x) cerr << #x \" = \" << boolalpha << (x) << endl;"
-	},
-
-	"ifdef": {
-		"prefix": "#ifdef",
-		"body": [
-			"#ifdef ${1:LOCAL}",
-			"$0",
-			"#endif",
-			""
-		]
+		"body": "typename"
 	},
 
 	"size_t": {
@@ -388,5 +479,4 @@
 		"prefix": "1e9+7",
 		"body": "static_cast <int64_t> (1000000007)"
 	},
-
 }
