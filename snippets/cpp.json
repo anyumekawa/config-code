@@ -219,6 +219,13 @@
 		]
 	},
 
+	"iterator pair of tail": {
+		"prefix": "TAIL",
+		"body": [
+			"next (begin (${1:v})), end ($1)$0"
+		]
+	},
+
 	"iterator pair of istreambuf_iterator": {
 		"prefix": ["iterator-pair", "istreambuf_iterator"],
 		"body": "(istreambuf_iterator <char> (cin)), istreambuf_iterator <char> ()$0"
@@ -254,7 +261,7 @@
 	},
 
 	"cout double": {
-		"prefix": "cout<<bool",
+		"prefix": "cout<<double",
 		"body": "cout << fixed << setprecision (15) << ${1:ans} << endl;$0",
 		"description": "output <double>"
 	},
