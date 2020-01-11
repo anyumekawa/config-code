@@ -27,23 +27,23 @@
 		"prefix": "main()",
 		"body": [
 		"#include <bits/stdc++.h>",
-			"#define _for(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (b), i ## __end = (e); i < i ## __end; ++ i)",
-			"#define FOR(...)    _for (__VA_ARGS__)",
-			"#define rep(i,n)    FOR(i, size_t{}, n)",
-			"#define ALL(x)      begin (x), end (x)",
-			"using namespace std;",
-			"using ll = int64_t;",
-			"constexpr ll inf = 2e18;",
-			"constexpr size_t invalid = ~0ull;",
-			"",
-			"auto main () -> int",
-			"{",
-			"\tcin.tie (nullptr);",
-			"\tios::sync_with_stdio (false);",
-			"",
-			"\t$0",
-			"}",
-			""
+		"#define _for(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (b), i ## __end = (e); i < i ## __end; ++ i)",
+		"#define FOR(...)    _for (__VA_ARGS__)",
+		"#define rep(i,n)    FOR(i, size_t{}, n)",
+		"#define ALL(x)      begin (x), end (x)",
+		"using namespace std;",
+		"using ll = int64_t;",
+		"constexpr ll inf = 2e18;",
+		"constexpr size_t invalid = ~0ull;",
+		"",
+		"auto main () -> int",
+		"{",
+		"\tcin.tie (nullptr);",
+		"\tios::sync_with_stdio (false);",
+		"",
+		"\t$0",
+		"}",
+		""
 		]
 	},
 
@@ -95,19 +95,19 @@
 	"switch": {
 		"prefix": "switch()",
 		"body": [
-			"switch (${1:tag})",
-		"{",
-		"$0",
-			"}"
+		  "switch (${1:tag})",
+		  "{",
+		  "$0",
+		  "}"
 		]
 	},
 
 	"case": {
 		"prefix": "case",
 		"body": [
-		"case ${1:/* integral constant */}:",
-		"\t$0",
-		"\tbreak;"
+		  "case ${1:/* integral constant */}:",
+		  "\t$0",
+		  "\tbreak;"
 		]
 	},
 
@@ -266,14 +266,12 @@
 
 	"cout bool": {
 		"prefix": "cout<<bool",
-		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;$0",
-		"description": "output <bool>"
+		"body": "cout << (${1:ans} ? \"${2:true}\" : \"${3:false}\") << endl;$0"
 	},
 
 	"cout double": {
 		"prefix": "cout<<double",
-		"body": "cout << fixed << setprecision (15) << ${1:ans} << endl;$0",
-		"description": "output <double>"
+		"body": "cout << fixed << setprecision (15) << ${1:ans} << endl;$0"
 	},
 
 	"input with istream_iterator": {
@@ -524,5 +522,5 @@
 	"998244353": {
 		"prefix": "998244353",
 		"body": "998244353"
-	},
+	}
 }
