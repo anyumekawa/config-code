@@ -33,8 +33,6 @@
 		"#define ALL(x)      begin (x), end (x)",
 		"using namespace std;",
 		"using ll = int64_t;",
-		"constexpr ll inf = 2e18;",
-		"constexpr size_t invalid = ~0ull;",
 		"",
 		"auto main () -> int",
 		"{",
@@ -312,6 +310,11 @@
 		"body": "#define ALL(x) begin (x), end (x)$0"
 	},
 
+	"#define TAIL": {
+		"prefix": "#define TAIL",
+		"body": "#define TAIL(x) next (begin (x)), end (x)$0"
+	},
+
 	"#define dump": {
 		"prefix": "#define dump",
 		"body": "#define dump(x) cerr << #x \" = \" << boolalpha << (x) << endl;$0"
@@ -319,17 +322,17 @@
 
 	"define inf": {
 		"prefix": "define inf = 2e18",
-		"body": "inline constexpr int64_t inf = 2e18;$0",
+		"body": "constexpr int64_t inf = 2e18;$0",
 	},
 
 	"define EPS": {
 		"prefix": "define EPS = 1e-9",
-		"body": "inline constexpr auto EPS = 1e-9;$0",
+		"body": "constexpr auto EPS = 1e-9;$0",
 	},
 
 	"define invalid": {
 		"prefix": "define invalid = ~0",
-		"body": "inline constexpr size_t invalid = ~0ull;$0",
+		"body": "constexpr size_t invalid = ~0ull;$0",
 	},
 	
 	"define PQR": {
