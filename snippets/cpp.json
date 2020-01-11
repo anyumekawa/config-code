@@ -26,13 +26,15 @@
 	"main": {
 		"prefix": "main()",
 		"body": [
-			"#include <bits/stdc++.h>",
-			"#define rep(i,n)    for (decay_t <decltype (n)> i = 0, i ## __len = (n); i < i ## __len; ++ i)",
+		"#include <bits/stdc++.h>",
 			"#define _for(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (b), i ## __end = (e); i < i ## __end; ++ i)",
-			"#define FORR(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (e), i ## __begin = (b); i -- > i ## __begin;)",
-			"#define ALL(x)      begin (x), end (x)",
 			"#define FOR(...)    _for (__VA_ARGS__)",
+			"#define rep(i,n)    FOR(i, size_t{}, n)",
+			"#define ALL(x)      begin (x), end (x)",
 			"using namespace std;",
+			"using ll = int64_t;",
+			"constexpr ll inf = 2e18;",
+			"constexpr size_t invalid = ~0ull;",
 			"",
 			"auto main () -> int",
 			"{",
@@ -46,22 +48,22 @@
 	},
 
 	"if": {
-		"prefix": "if",
+		"prefix": "if()",
 		"body": "if (${1:/* condition */})$0"
 	},
 
 	"else if": {
-		"prefix": "else if",
+		"prefix": "else if()",
 		"body": "else if (${1:/* condition */})$0"
 	},
 
 	"while": {
-		"prefix": "while",
+		"prefix": "while()",
 		"body": "while (${1:/* condition */})$0"
 	},
 
 	"do while": {
-		"prefix": "do",
+		"prefix": "do while();",
 		"body": [
 			"do",
 			"{",
@@ -71,33 +73,42 @@
 	},
 
 	"for loop": {
-		"prefix": "for",
+		"prefix": "for()",
 		"body": "for (${1:auto} ${2:i} = ${3:0}; $2 < ${4:n}; ++ $2)$0"
 	},
 
+	"for loop reverse": {
+		"prefix": "for()",
+		"body": "for (${1:auto} ${2:i} = ${3:n}; $2 -- > ${4:0};)$0"
+	},
+
 	"for loop with iterator": {
-		"prefix": "for",
-		"body": "for (auto ${1:ite} = begin (${2:v}); $1 < end ($2); ++ $1)$0"
+		"prefix": "for()",
+		"body": "for (auto ${1:ite} = begin (${2:v}); $1 != end ($2); ++ $1)$0"
 	},
 
 	"range-based for loop": {
-		"prefix": ["for", "range-based"],
+		"prefix": ["for()", "range-based"],
 		"body": "for (auto && ${1:elem} : ${2:v})$0"
 	},
 
 	"switch": {
-		"prefix": "switch",
+		"prefix": "switch()",
 		"body": [
-			"switch (${1:x})",
-			"{$0",
-			"default:",
+			"switch (${1:tag})",
+		"{",
+		"$0",
 			"}"
 		]
 	},
 
 	"case": {
 		"prefix": "case",
-		"body": "case ${1:/* integral constant */}:$0"
+		"body": [
+		"case ${1:/* integral constant */}:",
+		"\t$0",
+		"\tbreak;"
+		]
 	},
 
 	"goto": {
@@ -130,37 +141,42 @@
 	},
 
 	"sizeof": {
-		"prefix": "sizeof",
+		"prefix": "sizeof()",
 		"body": "sizeof (${1:/* type or expression */})$0"
 	},
 
 	"alignof": {
-		"prefix": "alignof",
+		"prefix": "alignof()",
 		"body": "alignof (${1:/* type */})$0"
 	},
 
 	"decltype": {
-		"prefix": "decltype",
+		"prefix": "decltype()",
 		"body": "decltype (${1:/* expression */})$0"
+	},
+	
+	"decltype(auto)": {
+		"prefix": "decltype(auto)",
+		"body": "decltype (auto)$0"
 	},
 
 	"noexcept expression": {
-		"prefix": "noexcept",
+		"prefix": "noexcept()",
 		"body": "noexcept (${1:/* expression */})$0"
 	},
 
 	"static_cast": {
-		"prefix": "static_cast",
+		"prefix": "static_cast<>()",
 		"body": "static_cast <${1:/* type */}> (${2:/* expression */})$0"
 	},
 
 	"static_assert": {
-		"prefix": "static_assert",
+		"prefix": "static_assert()",
 		"body": "static_assert (${1:/* condition */});$0"
 	},
 
 	"namespace": {
-		"prefix": "namespace",
+		"prefix": "namespace{}",
 		"body": [
 			"namespace ${1:detail}",
 			"{",
@@ -170,15 +186,15 @@
 	},
 
 	"template": {
-		"prefix": "template",
+		"prefix": "template<>",
 		"body": "template <$0>"
 	},
 
 	"lambda": {
 		"prefix": "lambda",
 		"body": [
-			"[&] (auto && ${1:x}) {",
-			"\treturn $1$0;",
+			"[&] () {",
+			"\treturn;$0",
 			"}"
 		]
 	},
@@ -186,9 +202,9 @@
 	"lambda-recursive": {
 		"prefix": "lambda-recursive",
 		"body": [
-			"auto ${1:f} = [&] (auto self, auto && ${2:x}) {",
-			"\treturn self (self, $2);$0",
-			"};$0"
+			"auto ${1:f} = [&] (auto self) {",
+			"\treturn self (self);$0",
+			"};"
 		]
 	},
 
@@ -203,13 +219,13 @@
 	},
 
 	"auto &&": {
-		"prefix": "auto",
+		"prefix": "auto&&",
 		"body": "auto &&$0"
 	},
 
 	"structured binding": {
-		"prefix": "auto",
-		"body": "auto && [${1:}] = ${2:/* tuple or array */};$0"
+		"prefix": ["auto[]", "structured binding"],
+		"body": "auto [${1:}] = ${2:/* tuple or array */};$0"
 	},
 
 	"iterator pair": {
@@ -227,31 +243,25 @@
 	},
 
 	"iterator pair of istreambuf_iterator": {
-		"prefix": ["iterator-pair", "istreambuf_iterator"],
+		"prefix": "istreambuf_iterator",
 		"body": "(istreambuf_iterator <char> (cin)), istreambuf_iterator <char> ()$0"
+	},
+	
+	"iterator_traits<>::value_type": {
+		"prefix": "iterator_traits<>::value_type",
+		"body": "typename iterator_traits <${1:Iterator}>::value_type$0"
 	},
 
 	"cin": {
 		"prefix": "cin>>",
 		"body": [
 			"${1:size_t} ${2:n}; cin >> $2;$0"
-		],
-		"description": "input"
-	},
-
-	"cin to vector": {
-		"prefix": "cin>>vector",
-		"body": [
-			"vector <${1:int64_t}> ${2:v} (${3:n});",
-			"for (auto && elem : $2) cin >> elem;$0"
-		],
-		"description": "input vector"
+		]
 	},
 
 	"cout": {
 		"prefix": "cout<<T",
-		"body": "cout << ${1:ans} << endl;$0",
-		"description": "output"
+		"body": "cout << ${1:ans} << endl;$0"
 	},
 
 	"cout bool": {
@@ -289,45 +299,63 @@
 		"body": "accumulate (begin (${1:v}), end ($1), typename iterator_traits <decltype (begin ($1))>::value_type {});$0"
 	},
 
-	"define FOR": {
-		"prefix": ["#define FOR", "define FOR"],
+	"#define FOR": {
+		"prefix": "#define FOR",
 		"body": "#define FOR(i,b,e) for (common_type_t <decltype (b), decltype (e)> i = (b), i ## __end = (e); i < i ## __end; ++ i)$0"
 	},
 
-	"define rep": {
-		"prefix": ["#define rep", "define rep"],
+	"#define rep": {
+		"prefix": "#define rep",
 		"body": "#define rep(i,n) for (decay_t <decltype (n)> i = 0, i ## __len = (n); i < i ## __len; ++ i)$0"
 	},
 
-	"define ALL": {
-		"prefix": ["#define ALL", "define ALL"],
+	"#define ALL": {
+		"prefix": "#define ALL",
 		"body": "#define ALL(x) begin (x), end (x)$0"
 	},
 
-	"define dump": {
-		"prefix": ["#define dump", "define dump"],
+	"#define dump": {
+		"prefix": "#define dump",
 		"body": "#define dump(x) cerr << #x \" = \" << boolalpha << (x) << endl;$0"
 	},
 
 	"define inf": {
-		"prefix": "define inf",
-		"body": [
-			"template <typename T = int64_t>",
-			"static constexpr auto inf = static_cast <T> (0x0de0b6b43b9aca00);$0"
-		],
-		"description": "constexpr inf"
+		"prefix": "define inf = 2e18",
+		"body": "inline constexpr int64_t inf = 2e18;$0",
 	},
 
 	"define EPS": {
-		"prefix": "define EPS",
-		"body": "static constexpr auto EPS = 1e-9;$0",
-		"description": "constexpr EPS"
+		"prefix": "define EPS = 1e-9",
+		"body": "inline constexpr auto EPS = 1e-9;$0",
 	},
 
-	"include-gurad": {
-		"prefix": "include-guard",
+	"define invalid": {
+		"prefix": "define invalid = ~0",
+		"body": "inline constexpr size_t invalid = ~0ull;$0",
+	},
+	
+	"define PQR": {
+		"prefix": "define PQR = ...",
 		"body": [
-			"#ifndef ${1:#:/* macro */}",
+		"template <typename T>",
+		"using PQR = priority_queue <T, vector <T>, greater <T>>;$0"
+		]
+	},
+
+	"define operator _zu": {
+		"prefix": "define operator\"\" _zu",
+		"body": "inline constexpr auto operator\"\" _zu (unsigned long long x) noexcept { return static_cast <size_t> (x); }$0"
+	},
+
+	"define operator _ll": {
+		"prefix": "define operator\"\" _ll",
+		"body": "inline constexpr auto operator\"\" _ll (unsigned long long x) noexcept { return static_cast <int64_t> (x); }$0"
+	},
+
+	"#include-gurad": {
+		"prefix": ["#include-gurad", "include-guard"],
+		"body": [
+			"#ifndef ${1:/* macro */}",
 			"#define $1",
 			"$0",
 			"#endif // $1",
@@ -468,6 +496,11 @@
 		"body": "typename"
 	},
 
+	"__VA_ARGS__": {
+		"prefix": "__VA_ARGS__",
+		"body": "__VA_ARGS__"
+	},
+
 	"size_t": {
 		"prefix": "size_t",
 		"body": "size_t"
@@ -485,6 +518,11 @@
 
 	"1e9+7": {
 		"prefix": "1e9+7",
-		"body": "static_cast <int64_t> (1000000007)"
+		"body": "static_cast <int64_t> (1e9+7)"
+	},
+
+	"998244353": {
+		"prefix": "998244353",
+		"body": "998244353"
 	},
 }

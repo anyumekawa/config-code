@@ -1,27 +1,19 @@
 {
-    "files.autoSave": "afterDelay",
-    "files.exclude": {
-      "**/.git": true,
-      "**/.svn": true,
-      "**/.hg": true,
-      "**/CVS": true,
-      "**/.DS_Store": true,
-      "**/a.out": true
-    },
     "editor.detectIndentation": false,
     "editor.find.autoFindInSelection": true,
     "editor.fontFamily": "'Roboto Mono', 'm+ 1M', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
     "editor.minimap.renderCharacters": false,
     "editor.renderWhitespace": "boundary",
-    "editor.scrollBeyondLastLine": false,
+    "editor.scrollBeyondLastLine": true,
     "editor.tabCompletion": "off",
     "editor.tabSize": 2,
     "editor.wordWrap": "on",
-    "window.zoomLevel": 0.25,
+    "files.autoSave": "afterDelay",
     "workbench.colorTheme": "Tomorrow Night",
-    "C_Cpp.updateChannel": "Insiders",
+    "C_Cpp.default.compilerPath": "/usr/bin/clang",
+    "C_Cpp.default.intelliSenseMode": "clang-x64",
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.cStandard": "c11",
-    "C_Cpp.default.intelliSenseMode": "clang-x64",
-    "C_Cpp.suggestSnippets": false
+    "C_Cpp.suggestSnippets": false,
+    "C_Cpp.updateChannel": "Insiders"
 }
