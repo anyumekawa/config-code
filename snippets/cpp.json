@@ -252,9 +252,7 @@
 
 	"cin": {
 		"prefix": "cin>>",
-		"body": [
-			"${1:size_t} ${2:n}; cin >> $2;$0"
-		]
+		"body": "cin >> ${1:n};$0"
 	},
 
 	"cout": {
